@@ -1,0 +1,18 @@
+# frozen_string_literal: true
+
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
+
+development:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] || 'postgresql://localhost/dc_be_development' %>
+
+test:
+  <<: *default
+  url: <%= ENV['DATABASE_TEST_URL'] || 'postgresql://localhost/dc_be_test' %>
+
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
