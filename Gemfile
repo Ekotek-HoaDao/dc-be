@@ -40,17 +40,23 @@ gem 'dotenv-rails'
 # Caching
 gem 'bootsnap', '>= 1.4.4', require: false
 
+# API Documentation
+gem 'rswag'
+
 group :development, :test do
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
   gem 'rspec-rails'
   gem 'factory_bot_rails'
   gem 'faker'
+  gem 'rswag-specs'
 end
 
 group :development do
   gem 'listen', '~> 3.3'
   gem 'spring'
   gem 'annotate'
+  gem 'rswag-ui'
+  gem 'rswag-api'
 end
 
 group :test do
