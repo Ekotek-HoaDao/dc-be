@@ -44,5 +44,12 @@ module DcBe
       g.factory_bot_suffix 'factory'
       g.skip_routes true
     end
+
+    # Enable session middleware for Sidekiq::Web in development
+    if Rails.env.development?
+      config.session_store :cookie_store, key: '_dc_be_session'
+      config.middleware.use ActionDispatch::Cookies
+      config.middleware.use config.session_store, config.session_options
+    end
   end
 end
