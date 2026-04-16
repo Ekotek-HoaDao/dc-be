@@ -23,7 +23,12 @@ module Api
         private
 
         def login_params
-          params.require(:user).permit(:email, :password)
+          # Accept both user nested params and direct params
+          if params[:user].present?
+            params.require(:user).permit(:email, :password)
+          else
+            params.permit(:email, :password)
+          end
         end
       end
     end

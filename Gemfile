@@ -62,4 +62,7 @@ end
 group :test do
   gem 'webmock'
   gem 'vcr'
+  gem 'simplecov', require: false
+  gem 'simplecov-cobertura'
+  gem 'rspec_junit_formatter'
 end

@@ -23,7 +23,12 @@ module Api
         private
 
         def register_params
-          params.require(:user).permit(:email, :password, :password_confirmation, :name)
+          # Accept both user nested params and direct params
+          if params[:user].present?
+            params.require(:user).permit(:email, :password, :password_confirmation, :name)
+          else
+            params.permit(:email, :password, :password_confirmation, :name)
+          end
         end
       end
     end
