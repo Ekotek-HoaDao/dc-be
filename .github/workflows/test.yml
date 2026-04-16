@@ -1,0 +1,38 @@
+name: Test Workflow
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0' # Specify your Ruby version here
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
+
+      - name: Run tests
+        run: |
+          bundle exec rspec
+          # Add any additional test commands here if needed
+
+      - name: Code quality checks
+        run: |
+          # Add commands for code quality checks, e.g., RuboCop
+          bundle exec rubocop
+          # Add any other quality tools as needed

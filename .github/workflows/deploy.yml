@@ -1,0 +1,41 @@
+name: Deploy
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0' # Specify your Ruby version
+
+      - name: Install dependencies
+        run: |
+          bundle install
+
+      - name: Precompile assets
+        run: |
+          RAILS_ENV=production bundle exec rake assets:precompile
+
+      - name: Run migrations
+        run: |
+          RAILS_ENV=production bundle exec rake db:migrate
+
+      - name: Deploy to server
+        run: |
+          # Add your deployment commands here
+          echo "Deploying to server..." 
+
+      - name: Post-deployment checks
+        run: |
+          # Add any post-deployment checks here
+          echo "Running post-deployment checks..." 
