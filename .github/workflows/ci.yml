@@ -77,7 +77,7 @@ jobs:
           files: |
             tmp/rspec.xml
           check_name: "Test Results"
-          comment_mode: "create new"
+          comment_mode: always
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
