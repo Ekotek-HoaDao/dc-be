@@ -63,19 +63,26 @@ jobs:
 
       - name: Run tests with coverage
         run: |
-          # Create dummy test result file if no tests exist
-          if [ ! -f "spec/spec_helper.rb" ]; then
+          if [ -f "spec/spec_helper.rb" ]; then
+            bundle exec rspec --format RspecJunitFormatter --out tmp/rspec.xml --format progress
+          else
+            # Create dummy test result if no real tests exist
             echo '<?xml version="1.0" encoding="UTF-8"?>' > tmp/rspec.xml
             echo '<testsuite name="rspec" tests="1" failures="0" errors="0" time="0">' >> tmp/rspec.xml
             echo '<testcase name="dummy test" classname="DummyTest" time="0"></testcase>' >> tmp/rspec.xml
             echo '</testsuite>' >> tmp/rspec.xml
-          else
-            bundle exec rspec --format RspecJunitFormatter --out tmp/rspec.xml --format progress || echo "Tests failed but continuing..."
           fi
         env:
           RAILS_ENV: test
           DATABASE_URL: postgres://postgres:postgres@localhost:5432/dc_be_test
         continue-on-error: true
+
+      - name: Check coverage files
+        if: always()
+        run: |
+          echo "Checking for coverage files..."
+          ls -la coverage/ || echo "No coverage directory found"
+          ls -la coverage/*.xml || echo "No XML coverage files found"
 
       - name: Publish test results
         uses: EnricoMi/publish-unit-test-result-action@v2
@@ -88,7 +95,7 @@ jobs:
 
       - name: Upload coverage to Codecov
         uses: codecov/codecov-action@v4
-        if: always()
+        if: always() && hashFiles('coverage/coverage.xml') != ''
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           files: ./coverage/coverage.xml

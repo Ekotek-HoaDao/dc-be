@@ -1,13 +1,33 @@
 # Setup Instructions cho Coverage Reporting
 
-## 1. Cài đặt Dependencies
+## ✅ Đã Setup Xong
 
+### 1. SimpleCov Configuration
+- ✅ Đã cấu hình trong `spec/spec_helper.rb`
+- ✅ Tạo HTML và XML coverage reports
+- ✅ Set minimum coverage 70%
+
+### 2. Basic Tests
+- ✅ ApplicationRecord test
+- ✅ ApplicationController test  
+- ✅ ApplicationJob test
+- ✅ User model test
+
+### 3. CI Workflow
+- ✅ GitHub Actions với permissions
+- ✅ PostgreSQL database setup
+- ✅ RSpec test execution
+- ✅ Coverage generation
+- ✅ Conditional Codecov upload
+
+## Bước tiếp theo
+
+### 1. Install Dependencies
 ```bash
 bundle install
 ```
 
-## 2. Setup GitHub Secrets
-
+### 2. Setup GitHub Secrets
 1. Đi tới repository Settings > Secrets and variables > Actions
 2. Thêm secret `CODECOV_TOKEN`:
    - Đăng nhập vào [codecov.io](https://codecov.io) bằng GitHub account
@@ -15,8 +35,7 @@ bundle install
    - Copy token từ repository settings
    - Paste vào GitHub Secret với tên `CODECOV_TOKEN`
 
-## 3. Chạy Tests với Coverage
-
+### 3. Test Local
 ```bash
 # Chạy test suite với coverage
 bundle exec rspec
@@ -25,27 +44,22 @@ bundle exec rspec
 open coverage/index.html
 ```
 
-## 4. GitHub Actions Workflow
+## File Structure
+```
+coverage/
+├── index.html          # HTML report để xem local
+├── coverage.xml        # XML report cho Codecov
+└── assets/            # CSS/JS cho HTML report
 
-Workflow sẽ tự động:
-- Chạy tests khi có PR vào `main` hoặc `develop`
-- Tạo coverage report
-- Upload coverage lên Codecov
-- Hiển thị test results trong PR
-- Codecov sẽ comment coverage changes trong PR
+tmp/
+└── rspec.xml          # JUnit format cho GitHub Actions
+```
 
-## 5. File Coverage Format
+## Workflow Features
 
-- HTML report: `coverage/index.html`
-- Cobertura XML: `coverage/coverage.xml` (cho Codecov)
-- JUnit XML: `tmp/rspec.xml` (cho GitHub Actions)
-
-## 6. Coverage Thresholds
-
-- Project coverage target: 70%
-- Patch coverage target: 60%
-- Minimum coverage fail threshold: 70%
-
-Điều chỉnh các thresholds này trong:
-- `codecov.yml` (cho Codecov)
-- `spec/spec_helper.rb` (cho local development)
+✅ **Test Execution:** RSpec với JUnit output  
+✅ **Coverage Generation:** SimpleCov với HTML + XML  
+✅ **Test Results:** GitHub Actions UI  
+✅ **Coverage Tracking:** Codecov integration  
+✅ **Error Handling:** Continue on failures  
+✅ **Conditional Upload:** Only when coverage exists

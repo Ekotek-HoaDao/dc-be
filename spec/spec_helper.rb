@@ -1,27 +1,26 @@
 # frozen_string_literal: true
 
-# SimpleCov configuration for code coverage
-# TODO: Uncomment after local Ruby environment is setup properly
-# require 'simplecov'
-# require 'simplecov-cobertura'
+# SimpleCov configuration - phải đặt ở đầu file
+require 'simplecov'
+require 'simplecov-cobertura'
 
-# SimpleCov.start 'rails' do
-#   add_filter '/spec/'
-#   add_filter '/config/'
-#   add_filter '/vendor/'
-#   add_filter '/app/channels/' # if not using ActionCable
-#   
-#   # Coverage output formats
-#   SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
-#     SimpleCov::Formatter::HTMLFormatter,
-#     SimpleCov::Formatter::CoberturaFormatter
-#   ])
-#   
-#   coverage_dir 'coverage'
-#   
-#   # Set minimum coverage
-#   minimum_coverage 70
-# end
+SimpleCov.start 'rails' do
+  add_filter '/spec/'
+  add_filter '/config/'
+  add_filter '/vendor/'
+  add_filter '/app/channels/' # if not using ActionCable
+  
+  # Coverage output formats
+  SimpleCov.formatters = SimpleCov::Formatter::MultiFormatter.new([
+    SimpleCov::Formatter::HTMLFormatter,
+    SimpleCov::Formatter::CoberturaFormatter
+  ])
+  
+  coverage_dir 'coverage'
+  
+  # Set minimum coverage
+  minimum_coverage 70
+end
 
 # Configure Rails Environment
 ENV['RAILS_ENV'] ||= 'test'
