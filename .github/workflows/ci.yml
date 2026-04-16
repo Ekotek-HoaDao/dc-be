@@ -10,6 +10,13 @@ on:
       - main
       - develop
 
+# Add permissions section
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+  actions: read
+
 jobs:
   test:
     runs-on: ubuntu-latest
