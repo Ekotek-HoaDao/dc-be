@@ -36,7 +36,12 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: '3.2.0'
-          bundler-cache: true
+          bundler-cache: false
+
+      - name: Install dependencies
+        run: |
+          gem install bundler
+          bundle install
 
       - name: Setup database
         run: |
