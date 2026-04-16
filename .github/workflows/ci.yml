@@ -14,17 +14,13 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
       - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '3.0' # Specify your Ruby version here
-
-      - name: Install dependencies
-        run: |
-          gem install bundler
-          bundle install
+          ruby-version: '3.2.0' # Changed from 3.0 to 3.2.0
+          bundler-cache: true # This automatically runs bundle install
 
       - name: Run tests
         run: |
@@ -35,6 +31,7 @@ jobs:
         run: |
           echo "Test results:"
           bundle exec rspec --format documentation
+          
       - name: Upload coverage reports to Codecov
         uses: codecov/codecov-action@v5
         with:
